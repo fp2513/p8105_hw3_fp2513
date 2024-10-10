@@ -8,6 +8,9 @@ date: "2024-10-10"
 library(p8105.datasets)
 library(tidyverse)
 library(dplyr)
+library(lubridate)
+library(rnoaa)
+
 data("ny_noaa")
 ```
 
@@ -35,6 +38,39 @@ And 1132502 rows that have missing data for both coloumns tmax and tmin.
 
 The missing data is an issue, as there is inconsistancy in the data / information. 
 
-**Do some data cleaning. Create separate variables for year, month, and day. Ensure observations for temperature, precipitation, and snowfall are given in reasonable units. For snowfall, what are the most commonly observed values? Why?**
+**Do some data cleaning. Create separate variables for year, month, and day.**
+
+```{r}
+dated_ny_noaa = 
+  ny_noaa %>% 
+  mutate(
+    year = year(date),
+    month = month(date),
+    day = day(date)
+  ) %>% 
+  select(-date)
+```
+
+**Ensure observations for temperature, precipitation, and snowfall are given in reasonable units.**
+
+Current units -->
+
+- temperature in 10ths of degrees celcius (need to be converted to whole degrees celcius)
+
+- precipitation in tenths of mm (to be converted to mm)
+
+- snowfall in mm (can remain in mm or converted to cm)
+
+```{r}
+dated_ny_noaa = 
+  dated_ny_noaa %>% 
+  mutate(tmax = as.integer(tmax), 
+         tmin = as.integer(tmin)) %>% 
+  mutate(tmax = tmax / 10, 
+         tmin = tmin / 10, 
+         prcp = prcp / 10)
+```
+
+**For snowfall, what are the most commonly observed values? Why?**
 
 
