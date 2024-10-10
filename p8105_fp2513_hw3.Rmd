@@ -1,0 +1,11 @@
+---
+title: "DataScience_HW3"
+output: github_document
+date: "2024-10-10"
+---
+
+```{r setup, include=FALSE}
+library(p8105.datasets)
+data("ny_noaa")
+```
+
