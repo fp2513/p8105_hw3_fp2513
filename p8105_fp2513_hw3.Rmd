@@ -277,4 +277,29 @@ Daily_act_df =
   
 ```
 
+```{r}
+daily_act_edu_sex_p = 
+  Daily_act_df %>% 
+  mutate(
+    education = factor(education, levels = c("less_than_high_school", "high_school_equivalent", "more_than_high_school"))
+  ) %>% 
+  ggplot(aes(x = age, y = daily_activity, color = sex)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(aes(group = sex), se = FALSE) + 
+  facet_grid(. ~ education) + 
+  theme_minimal()
+
+print(daily_act_edu_sex_p)
+```
+
+There seems to be a general downward trend where as the participant gets older their total daily activity decreases too. 
+
+Those participants in the 'more than high school' education level have the most consistent total daily activity across the ages. Whereas those in the 'less than high school' education level show an obvious decrease in daily activity from 20 to 80 years olds. 
+
+There is an interesting pattern for all three education levels, where around the 60 year old mark there are either prominent peaks or dips in daily total activity that does not follow the general trend. For instance in the 'high school equivalent' education level, around 60 years of both males and females participants have a sharp dip in total daily activity. But in the 'less than high school' education level group at around 60 years the females show a sudden drop and the males a peak in total daily activity. This is the opposite for participants in the 'more than high school' education, males dipping and females peaking at around 60 years. 
+
+**Accelerometer data allows the inspection activity over the course of the day. Make a three-panel plot that shows the 24-hour activity time courses for each education level and use color to indicate sex. Describe in words any patterns or conclusions you can make based on this graph; including smooth trends may help identify differences.**
+
+This just doesn't identify seperate individuals, this is just 
+
 
