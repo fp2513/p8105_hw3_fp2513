@@ -136,3 +136,12 @@ Some noticeable outliers include in the year 1981 January where there was an ext
 
 One outlier of Average Maximum Temperature in July is 1988 where one station averaged below 15 degrees Celsius, where other stations in that month had average recordings around 25 to 30 degrees Celsius.
 
+**Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option);**
+
+```{r}
+
+```
+
+**(ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.**
+
+
