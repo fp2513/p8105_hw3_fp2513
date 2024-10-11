@@ -224,8 +224,39 @@ Sex_Edu_df =
     names_from = sex, 
     values_from = count)
   
+print(Sex_Edu_df)
 ```
 
+```{r}
+Sex_Edu_df %>% 
+  pivot_longer(
+    cols = female:male, 
+    names_to = "sex", 
+    values_to = "count") %>% 
+  mutate(
+    education = factor(education, levels = c("less_than_high_school", "high_school_equivalent", "more_than_high_school"))
+  ) %>% 
+  ggplot(aes(x = education, y = count, fill = sex)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Number of participants based on Education level by Sex",
+       x = "Education",
+       y = "Number of participants",
+       fill = "Sex") +
+  theme_minimal()
+```
 
+```{r}
+Demo_Acc_Join_df %>% 
+  group_by(education, sex) %>% 
+  ggplot(aes(x = education, y = age)) +
+  geom_violin(aes(fill = sex)) 
 
+```
+
+```{r}
+Demo_Acc_Join_df %>% 
+  group_by(education, sex) %>% 
+  ggplot(aes(x = education, y = age, fill = sex)) +
+  geom_boxplot()
+```
 
