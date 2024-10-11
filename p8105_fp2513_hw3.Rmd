@@ -324,4 +324,76 @@ At each hour there is a spread of activity based on individual which is consiste
 
 In the 'less than high school' and 'high school equivalent' education levels their activity throughout the day does not exceed 50 MIMS. However, in the 'more than high school' education level there are participants whose activity reach 75 and even 100 MIMS. My hypothesis is that these are correspondent to those participants working out, especially since those peaks occur around supposed morning and evening times which are the most common times to work out. This encourages further research into type of demographic which make up each education level, whether there is a certain dominant lifestyle which could further explain these activity patterns. 
 
+## Problem 3 
+
+**Files contain 1% of all rides with a total duration less than 4 hours in each of four months. Import, clean, and tidy these data, and describe the resulting dataset.**
+
+```{r}
+Jan_2020_Citi_df = 
+  read_csv("citibike/Jan 2020 Citi.csv.zip", na = c("NA", ".", "")) %>%   janitor::clean_names()%>% 
+  mutate(
+    weekdays = factor(weekdays, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
+    rideable_type = as.factor(rideable_type),
+    member_casual = as.factor(member_casual),
+    date = "Jan_2020"
+  ) %>% 
+  rename(bike_type = rideable_type,
+    day_of_week = weekdays,
+    ride_duration = duration,
+    membership_status = member_casual
+  )
+
+Jan_2024_Citi_df = 
+  read_csv("citibike/Jan 2024 Citi.csv.zip", na = c("NA", ".", "")) %>%   janitor::clean_names()%>% 
+  mutate(
+    weekdays = factor(weekdays, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
+    rideable_type = as.factor(rideable_type),
+    member_casual = as.factor(member_casual),
+    date = "Jan_2024"
+  ) %>% 
+  rename(bike_type = rideable_type,
+    day_of_week = weekdays,
+    ride_duration = duration,
+    membership_status = member_casual
+  )
+
+Jul_2020_Citi_df = 
+  read_csv("citibike/July 2020 Citi.csv.zip", na = c("NA", ".", "")) %>%   janitor::clean_names()%>% 
+  mutate(
+    weekdays = factor(weekdays, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
+    rideable_type = as.factor(rideable_type),
+    member_casual = as.factor(member_casual),
+    date = "Jul_2020"
+  ) %>% 
+  rename(bike_type = rideable_type,
+    day_of_week = weekdays,
+    ride_duration = duration,
+    membership_status = member_casual
+  )
+
+Jul_2024_Citi_df = 
+  read_csv("citibike/July 2024 Citi.csv.zip", na = c("NA", ".", "")) %>%   janitor::clean_names()%>% 
+  mutate(
+    weekdays = factor(weekdays, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
+    rideable_type = as.factor(rideable_type),
+    member_casual = as.factor(member_casual),
+    date = "Jul_2024"
+  ) %>% 
+  rename(bike_type = rideable_type,
+    day_of_week = weekdays,
+    ride_duration = duration,
+    membership_status = member_casual
+  )
+```
+
+```{r}
+Citi_tidy_df = 
+  bind_rows(Jan_2020_Citi_df, Jul_2020_Citi_df, Jan_2024_Citi_df, Jul_2024_Citi_df) %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    date = factor(date, levels = c("Jan_2020", "Jul_2020", "Jan_2024", "Jul_2024"))
+  )
+```
+
+Resultant dataset has 99485 observations with 8 variables. The 8 variables are ride_id, bike_type, day_of_week, ride_duration, start_station_name, end_station_name, membership_status, and date. Where date as a factor variable helps to correspond which dataframe the data originally came from, either Jan 2020, Jul 2020, Jan 2024, or Jul 2024. 
 
