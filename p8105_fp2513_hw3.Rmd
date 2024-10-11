@@ -192,4 +192,15 @@ demographic_df =
          
 ```
 
+```{r}
+accelerometer_df =
+  accelerometer_df %>%
+  pivot_longer(
+    cols = starts_with("min"),
+    names_to = "minute", 
+    names_prefix = "min",
+    values_to = "MIMS_values" 
+  )
+  
+```
 
