@@ -300,6 +300,22 @@ There is an interesting pattern for all three education levels, where around the
 
 **Accelerometer data allows the inspection activity over the course of the day. Make a three-panel plot that shows the 24-hour activity time courses for each education level and use color to indicate sex. Describe in words any patterns or conclusions you can make based on this graph; including smooth trends may help identify differences.**
 
-This just doesn't identify seperate individuals, this is just 
+```{r}
+Daily_act_df %>% 
+  mutate(
+    education = factor(education, levels = c("less_than_high_school", "high_school_equivalent", "more_than_high_school"))
+  ) %>% 
+  mutate(
+    minute = as.numeric(minute)
+  ) %>% 
+  mutate(
+    hour = ceiling(minute / 60)) %>% 
+  ggplot(aes(x = hour, y = MIMS_values, color = sex)) + 
+  geom_point(alpha = .5) + 
+  geom_smooth(aes(group = sex), se = FALSE) + 
+  facet_grid(. ~ education) + 
+  theme_minimal()
+
+```
 
 
