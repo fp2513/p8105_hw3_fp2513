@@ -188,7 +188,8 @@ demographic_df =
     education = as.factor(education)
   ) %>% 
   filter(age > 20) %>% 
-  drop_na()
+  drop_na() %>% 
+  rename(seqn = SEQN)
          
 ```
 
@@ -200,7 +201,15 @@ accelerometer_df =
     names_to = "minute", 
     names_prefix = "min",
     values_to = "MIMS_values" 
+  ) %>% 
+  mutate(
+    seqn = as.character(seqn)
   )
   
+```
+
+```{r}
+Demo_Acc_Join_df =
+  left_join(demographic_df, accelerometer_df, by = "seqn")
 ```
 
