@@ -13,6 +13,8 @@ library(rnoaa)
 library(patchwork)
 library(ggridges)
 library(ggplot2)
+library(knitr)
+
 ```
 
 ## Problem 1
@@ -224,7 +226,8 @@ Sex_Edu_df =
     names_from = sex, 
     values_from = count)
   
-print(Sex_Edu_df)
+kable(Sex_Edu_df, caption = "Number of Participants by Education and Sex")
+
 ```
 
 ```{r}
@@ -238,7 +241,7 @@ Sex_Edu_df %>%
   ) %>% 
   ggplot(aes(x = education, y = count, fill = sex)) + 
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Number of participants based on Education level by Sex",
+  labs(title = "Number of participants by Education level and Sex",
        x = "Education",
        y = "Number of participants",
        fill = "Sex") +
