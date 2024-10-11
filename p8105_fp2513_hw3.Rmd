@@ -213,3 +213,19 @@ Demo_Acc_Join_df =
   left_join(demographic_df, accelerometer_df, by = "seqn")
 ```
 
+**Produce a reader-friendly table for the number of men and women in each education category, and create a visualization of the age distributions for men and women in each education category. Comment on these items.**
+
+```{r}
+Sex_Edu_df =
+  Demo_Acc_Join_df %>% 
+  group_by(education, sex) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  pivot_wider(
+    names_from = sex, 
+    values_from = count)
+  
+```
+
+
+
+
