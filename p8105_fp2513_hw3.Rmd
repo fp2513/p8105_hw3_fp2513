@@ -397,3 +397,21 @@ Citi_tidy_df =
 
 Resultant dataset has 99485 observations with 8 variables. The 8 variables are ride_id, bike_type, day_of_week, ride_duration, start_station_name, end_station_name, membership_status, and date. Where date as a factor variable helps to correspond which dataframe the data originally came from, either Jan 2020, Jul 2020, Jan 2024, or Jul 2024. 
 
+**Produce a reader-friendly table showing the total number of rides in each combination of year and month separating casual riders and Citi Bike members. Comment on these results.**
+
+```{r}
+Total_rides = 
+  Citi_tidy_df %>% 
+  group_by(date, membership_status) %>% 
+  count() %>% 
+  pivot_wider(
+    names_from = membership_status, 
+    values_from = n)
+
+kable(Total_rides, caption = "Total number of rides based on Date and rider's Membership Status")
+
+```
+
+Comment 
+
+
