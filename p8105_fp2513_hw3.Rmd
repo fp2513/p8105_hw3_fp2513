@@ -251,15 +251,30 @@ Sex_Edu_df %>%
 ```{r}
 Demo_Acc_Join_df %>% 
   group_by(education, sex) %>% 
-  ggplot(aes(x = education, y = age)) +
-  geom_violin(aes(fill = sex)) 
-
-```
-
-```{r}
-Demo_Acc_Join_df %>% 
-  group_by(education, sex) %>% 
+  mutate(
+    education = factor(education, levels = c("less_than_high_school", "high_school_equivalent", "more_than_high_school"))
+  ) %>% 
   ggplot(aes(x = education, y = age, fill = sex)) +
   geom_boxplot()
 ```
+
+In general there are a significantly greater number of participants in this study that have a 'more than high school' education level (~ 80000 for both females and males, whereas the other two education levels hover around the 40000 mark). The number of females and males are relatively similar for those categorised in 'more tan high school' and 'less than high school' education level. There are however more males (~ 50000) than females (~ 35000) which are high school students in this study. Overall, there are more males than females in this study. 
+
+In the 'more than high school' and 'less than high school' education levels the age distribution for the males and females are similar within their respective education levels. They share similar ranges, similar interquartile ranges and medians. In the 'high school equivalent' education level the females have a older age distribution, with a high median around 60, compared to the males at 50. While the interquartile ranges still overlap, the females are pulled older from ~45 to ~75 years old, where the males interquartile range covers ~30 to ~65 years old. 
+
+Those males and females of the 'more than high school' education level have a younger age distribution (indicated by the median around 40 years old) than those from a 'less than high school' (60) or 'high school equivalent' (~55-60) education level. 
+
+**Traditional analyses of accelerometer data focus on the total activity over the day. Using your tidied dataset, aggregate across minutes to create a total activity variable for each participant. Plot these total activities (y-axis) against age (x-axis); your plot should compare men to women and have separate panels for each education level. Include a trend line or a smooth to illustrate differences. Comment on your plot.**
+
+```{r}
+Daily_act_df = 
+  Demo_Acc_Join_df %>% 
+  group_by(seqn) %>% 
+  mutate(
+    daily_activity = 
+      sum(MIMS_values, na.rm = TRUE)) %>% 
+  ungroup()
+  
+```
+
 
