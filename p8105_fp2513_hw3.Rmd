@@ -158,7 +158,7 @@ Need to pivot longer
 tmax and tmin into a single column called temperature and a second column called temp_measure
 either tmax or tmin 
 
-```{r, eval = FALSE, include = FALSE}
+```{r}
 dated_ny_noaa %>% 
   filter(!is.na(tmin) & !is.na(tmax)) %>% 
   pivot_longer(
@@ -188,7 +188,8 @@ dated_ny_noaa %>%
        x = "Year",
        y = "Snowfall (mm)",
        fill = "Year") +
-  theme_minimal()
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
   
 ```
 
